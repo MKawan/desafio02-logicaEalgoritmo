@@ -8,32 +8,36 @@ Neste repositório, insira todos os links e arquivos necessários para seu proje
 Dica: Se o expert forneceu um repositório Github, você pode dar um "fork" no repositório dele para organizar suas alterações e evoluções mantendo uma referência direta ao código-fonte original.
  
 Instruções para entrega
-# 1️⃣ Desafio Classificador de nível de Herói
-
+ # 2️⃣ Calculadora de partidas Rankeadas
 **O Que deve ser utilizado**
 
 - Variáveis
 - Operadores
 - Laços de repetição
 - Estruturas de decisões
+- Funções
 
-## Objetivo
+## Objetivo:
 
-Crie uma variável para armazenar o nome e a quantidade de experiência (XP) de um herói, depois utilize uma estrutura de decisão para apresentar alguma das mensagens abaixo:
+Crie uma função que recebe como parâmetro a quantidade de vitórias e derrotas de um jogador,
+depois disso retorne o resultado para uma variável, o saldo de Rankeadas deve ser feito através do calculo (vitórias - derrotas)
 
-Se XP for menor do que 1.000 = Ferro
-Se XP for entre 1.001 e 2.000 = Bronze
-Se XP for entre 2.001 e 5.000 = Prata
-Se XP for entre 5.001 e 7.000 = Ouro
-Se XP for entre 7.001 e 8.000 = Platina
-Se XP for entre 8.001 e 9.000 = Ascendente
-Se XP for entre 9.001 e 10.000= Imortal
-Se XP for maior ou igual a 10.001 = Radiante
+Se vitórias for menor do que 10 = Ferro
+Se vitórias for entre 11 e 20 = Bronze
+Se vitórias for entre 21 e 50 = Prata
+Se vitórias for entre 51 e 80 = Ouro
+Se vitórias for entre 81 e 90 = Diamante
+Se vitórias for entre 91 e 100= Lendário
+Se vitórias for maior ou igual a 101 = Imortal
 
 ## Saída
 
 Ao final deve se exibir uma mensagem:
-"O Herói de nome **{nome}** está no nível de **{nivel}**"
+"O Herói tem de saldo de **{saldoVitorias}** está no nível de **{nivel}**"
+ 
+
+  
+Bons estudos
 */
 
 const readline = require('readline');
@@ -43,47 +47,40 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-function calcularNivel(xp) {
-    let nivel;
-  
-    switch (true) {
-      case xp < 1000:
-        nivel = 'Ferro';
-        break;
-      case xp >= 1001 && xp <= 2000:
-        nivel = 'Bronze';
-        break;
-      case xp >= 2001 && xp <= 5000:
-        nivel = 'Prata';
-        break;
-      case xp >= 5001 && xp <= 7000:
-        nivel = 'Ouro';
-        break;
-      case xp >= 7001 && xp <= 8000:
-        nivel = 'Platina';
-        break;
-      case xp >= 8001 && xp <= 9000:
-        nivel = 'Ascendente';
-        break;
-      case xp >= 9001 && xp <= 10000:
-        nivel = 'Imortal';
-        break;
-      case xp >= 10001:
-        nivel = 'Radiante';
-        break;
-      default:
-        nivel = 'Nível não definido';
-    }
-  
-    return nivel;
+function determinarNivel(saldo) {
+  let nivel;
+  let vitorias = parseInt(saldo)
+  switch (true) {
+    case vitorias < 10:
+      nivel = 'Ferro';
+      break;
+    case vitorias >= 11 && vitorias <= 20:
+      nivel = 'Bronze';
+      break;
+    case vitorias >= 21 && vitorias <= 50:
+      nivel = 'Prata';
+      break;
+    case vitorias >= 51 && vitorias <= 80:
+      nivel = 'Ouro';
+      break;
+    case vitorias >= 81 && vitorias <= 90:
+      nivel = 'Diamante';
+      break;
+    case vitorias >= 91 && vitorias <= 100:
+      nivel = 'Lendário';
+      break;
+    case vitorias >= 101:
+      nivel = 'Imortal';
+      break;
+    default:
+      nivel = 'Nível não definido';
+  }
+
+  return nivel;
 }
 
-rl.question('Digite o nome do Heroi: ', (heroi) => {
+rl.question('Digite o saldo de vitorias do Heroi: ', (saldo) => {
 
-  
-  rl.question('Digite o xp 1 a 10001: ', (valor) => {
-    
-      console.log(`O Herói de nome ${heroi} está no nível de ${calcularNivel(valor)}`)
+      console.log(`O Herói tem de saldo de ${saldo} está no nível de ${determinarNivel(saldo)}`)
       rl.close();
-    });
 });
