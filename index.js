@@ -8,7 +8,8 @@ Neste repositório, insira todos os links e arquivos necessários para seu proje
 Dica: Se o expert forneceu um repositório Github, você pode dar um "fork" no repositório dele para organizar suas alterações e evoluções mantendo uma referência direta ao código-fonte original.
  
 Instruções para entrega
- # 2️⃣ Calculadora de partidas Rankeadas
+# 3️⃣ Escrevendo as classes de um Jogo
+
 **O Que deve ser utilizado**
 
 - Variáveis
@@ -16,27 +17,37 @@ Instruções para entrega
 - Laços de repetição
 - Estruturas de decisões
 - Funções
+- Classes e Objetos
 
 ## Objetivo:
 
-Crie uma função que recebe como parâmetro a quantidade de vitórias e derrotas de um jogador,
-depois disso retorne o resultado para uma variável, o saldo de Rankeadas deve ser feito através do calculo (vitórias - derrotas)
+Crie uma classe generica que represente um herói de uma aventura e que possua as seguintes propriedades:
 
-Se vitórias for menor do que 10 = Ferro
-Se vitórias for entre 11 e 20 = Bronze
-Se vitórias for entre 21 e 50 = Prata
-Se vitórias for entre 51 e 80 = Ouro
-Se vitórias for entre 81 e 90 = Diamante
-Se vitórias for entre 91 e 100= Lendário
-Se vitórias for maior ou igual a 101 = Imortal
+- nome
+- idade
+- tipo (ex: guerreiro, mago, monge, ninja )
+
+além disso, deve ter um método chamado atacar que deve atender os seguientes requisitos:
+
+- exibir a mensagem: "o {tipo} atacou usando {ataque}")
+- aonde o {tipo} deve ser concatenando o tipo que está na propriedade da classe
+- e no {ataque} deve seguir uma descrição diferente conforme o tipo, seguindo a tabela abaixo:
+
+se mago -> no ataque exibir (usou magia)
+se guerreiro -> no ataque exibir (usou espada)
+se monge -> no ataque exibir (usou artes marciais)
+se ninja -> no ataque exibir (usou shuriken)
 
 ## Saída
 
 Ao final deve se exibir uma mensagem:
-"O Herói tem de saldo de **{saldoVitorias}** está no nível de **{nivel}**"
+
+- "o {tipo} atacou usando {ataque}"
+  ex: mago atacou usando magia
+  guerreiro atacou usando espada
  
 
-  
+ 
 Bons estudos
 */
 
@@ -46,41 +57,43 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-function determinarNivel(saldo) {
-  let nivel;
-  let vitorias = parseInt(saldo)
-  switch (true) {
-    case vitorias < 10:
-      nivel = 'Ferro';
-      break;
-    case vitorias >= 11 && vitorias <= 20:
-      nivel = 'Bronze';
-      break;
-    case vitorias >= 21 && vitorias <= 50:
-      nivel = 'Prata';
-      break;
-    case vitorias >= 51 && vitorias <= 80:
-      nivel = 'Ouro';
-      break;
-    case vitorias >= 81 && vitorias <= 90:
-      nivel = 'Diamante';
-      break;
-    case vitorias >= 91 && vitorias <= 100:
-      nivel = 'Lendário';
-      break;
-    case vitorias >= 101:
-      nivel = 'Imortal';
-      break;
-    default:
-      nivel = 'Nível não definido';
+class Heroi {
+  constructor(nome, idade, tipo) {
+    this.nome = nome;
+    this.idade = idade;
+    this.tipo = tipo;
   }
 
-  return nivel;
+  atacar() {
+    let ataque;
+    switch (this.tipo) {
+      case 'mago':
+        ataque = 'usou magia';
+        break;
+      case 'guerreiro':
+        ataque = 'usou espada';
+        break;
+      case 'monge':
+        ataque = 'usou artes marciais';
+        break;
+      case 'ninja':
+        ataque = 'usou shuriken';
+        break;
+      default:
+        ataque = 'usou um ataque indefinido';
+    }
+    console.log(`O ${this.tipo} ${this.nome} atacou usando ${ataque}`);
+  }
 }
 
-rl.question('Digite o saldo de vitorias do Heroi: ', (saldo) => {
 
-      console.log(`O Herói tem de saldo de ${saldo} está no nível de ${determinarNivel(saldo)}`)
+rl.question('Digite a nome: ', (nome) => {
+
+  rl.question('Digite a idade: ', (idade) => {
+    rl.question('Digite o tipo: ', (tipo) => {
+      const heroi1 = new Heroi(nome, idade, tipo);
+      heroi1.atacar();
       rl.close();
+    });
+  });
 });
